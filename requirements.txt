@@ -1,4 +1,38 @@
+# Core numerical / ML
 numpy
 pandas
 scipy
+torch
+torchaudio
+torchvision
+
+# Audio I/O & DSP
+soundfile
+audioread
+librosa>=0.10
+lazy_loader
+soxr
+resampy
+
+# Data / utilities
+tqdm
+requests
+pyyaml
+packaging
+safetensors
+sounddevice==0.5.2
+
+# Visualization / notebooks
 matplotlib
+tensorboard
+jupyterlab
+ipykernel
+ipywidgets
+
+# Hugging Face / datasets
+huggingface-hub
+datasets
+transformers
+
+
+rtpysynth[ui] @ git+https://github.com/lonce/RTPySynth@v0.1.4
