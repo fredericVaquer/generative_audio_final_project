@@ -9,7 +9,7 @@ from scipy.io import wavfile
 # ==========================
 
 INPUT_FOLDER       = "raw"
-OUTPUT_FOLDER      = "trumpet/raw"
+OUTPUT_FOLDER      = "trumpet_frequency/raw"
 FRAME_RATE         = 75
 MIN_DURATION       = 0.5    # seconds — discard files shorter than this after trimming
 SILENCE_RUN        = 50    # consecutive zero samples required to declare silence
