@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "fps": 75,
+  "feature_names": [
+    "pitch_sin",
+    "pitch_cos"
+  ],
+  "features": {
+    "pitch_sin": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "sine",
+      "description": "Continuous parameter: pitch_sin"
+    },
+    "pitch_cos": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "cosine",
+      "description": "Continuous parameter: pitch_cos"
+    }
+  },
+  "num_features": 2
+}

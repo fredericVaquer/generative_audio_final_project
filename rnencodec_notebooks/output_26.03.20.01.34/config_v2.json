@@ -1,0 +1,42 @@
+{
+  "format": "run_config_v2",
+  "params": null,
+  "model_config": {
+    "input_size": 128,
+    "cond_size": 2,
+    "hidden_size": 128,
+    "num_layers": 3,
+    "n_q": 8,
+    "codebook_size": 1024,
+    "dropout": 0.1,
+    "inp_proportion": 1,
+    "cond_proportion": 1,
+    "gumbel_tau_start": 1.0,
+    "gumbel_tau_end": 0.5,
+    "straight_through": true,
+    "cascade": "hard",
+    "hard_sample_mode": "sample",
+    "top_n_hard": 8,
+    "temperature_hard": 0.8,
+    "tau_soft": 0.6,
+    "top_n_soft": null
+  },
+  "data_config": {
+    "dataset_path": "../trumpet_sine_cosine/hf_dataset",
+    "sequence_length": 125,
+    "parameter_specs": {
+      "pitch_sin": null,
+      "pitch_cos": null
+    },
+    "add_noise": true,
+    "noise_weight": 0.05,
+    "codebook_size": 1024,
+    "n_q": 8,
+    "clamp_val": 15,
+    "filters": {},
+    "files_per_sequence": 4,
+    "cond_root": null,
+    "cond_suffix": ".cond.npy",
+    "strict": false
+  }
+}

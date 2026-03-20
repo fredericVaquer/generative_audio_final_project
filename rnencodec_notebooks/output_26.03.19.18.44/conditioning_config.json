@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "fps": 75,
+  "feature_names": [
+    "pitch"
+  ],
+  "features": {
+    "pitch": {
+      "type": "continuous",
+      "min": 230,
+      "max": 450,
+      "unit": "Hz",
+      "description": "Continuous parameter: pitch"
+    }
+  },
+  "num_features": 1
+}

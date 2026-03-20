@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "fps": 75,
+  "feature_names": [
+    "pitch_sin_1",
+    "pitch_cos_1",
+    "pitch_sin_2",
+    "pitch_cos_2",
+    "pitch_sin_3",
+    "pitch_cos_3",
+    "pitch_sin_4",
+    "pitch_cos_4"
+  ],
+  "features": {
+    "pitch_sin_1": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "sine_component_1",
+      "description": "Continuous parameter: pitch_sin_1"
+    },
+    "pitch_cos_1": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "cosine_component_1",
+      "description": "Continuous parameter: pitch_cos_1"
+    },
+    "pitch_sin_2": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "sine_component_2",
+      "description": "Continuous parameter: pitch_sin_2"
+    },
+    "pitch_cos_2": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "cosine_component_2",
+      "description": "Continuous parameter: pitch_cos_2"
+    },
+    "pitch_sin_3": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "sine_component_3",
+      "description": "Continuous parameter: pitch_sin_3"
+    },
+    "pitch_cos_3": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "cosine_component_3",
+      "description": "Continuous parameter: pitch_cos_3"
+    },
+    "pitch_sin_4": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "sine_component_4",
+      "description": "Continuous parameter: pitch_sin_4"
+    },
+    "pitch_cos_4": {
+      "type": "continuous",
+      "min": -1.0,
+      "max": 1.0,
+      "unit": "cosine_component_4",
+      "description": "Continuous parameter: pitch_cos_4"
+    }
+  },
+  "num_features": 8
+}

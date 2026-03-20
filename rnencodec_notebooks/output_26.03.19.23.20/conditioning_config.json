@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "fps": 75,
+  "feature_names": [
+    "pitch_class_A#3",
+    "pitch_class_A4",
+    "pitch_class_C#4",
+    "pitch_class_C4",
+    "pitch_class_D#4",
+    "pitch_class_D4",
+    "pitch_class_E4",
+    "pitch_class_F#4",
+    "pitch_class_F4",
+    "pitch_class_G#4",
+    "pitch_class_G4"
+  ],
+  "features": {
+    "pitch_class_A#3": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "A#3",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'A#3'"
+    },
+    "pitch_class_A4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "A4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'A4'"
+    },
+    "pitch_class_C#4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "C#4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'C#4'"
+    },
+    "pitch_class_C4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "C4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'C4'"
+    },
+    "pitch_class_D#4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "D#4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'D#4'"
+    },
+    "pitch_class_D4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "D4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'D4'"
+    },
+    "pitch_class_E4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "E4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'E4'"
+    },
+    "pitch_class_F#4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "F#4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'F#4'"
+    },
+    "pitch_class_F4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "F4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'F4'"
+    },
+    "pitch_class_G#4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "G#4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'G#4'"
+    },
+    "pitch_class_G4": {
+      "type": "binary",
+      "source_parameter": "pitch_class",
+      "class_name": "G4",
+      "unit": "probability",
+      "description": "One-hot encoding for pitch_class class 'G4'"
+    }
+  },
+  "num_features": 11
+}
