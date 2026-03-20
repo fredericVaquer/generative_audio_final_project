@@ -456,64 +456,50 @@ def generate_offline(
     conditioning_sequence: Optional[torch.Tensor] = None,
     duration: float = 10.0,
     param_values: Optional[Dict[str, float]] = None,
-    device: str = DEVICE
+    device: str = "cpu"
 ) -> np.ndarray:
-    """
-    Generate audio offline (non-real-time) with custom conditioning.
-    
-    Args:
-        rnngen: Loaded RNN generator
-        conditioning_config: Conditioning configuration dict
-        conditioning_sequence: Pre-defined conditioning tensor of shape (num_frames, num_features).
-                              If provided, overrides duration and param_values.
-        duration: Duration in seconds (default: 10.0). Ignored if conditioning_sequence provided.
-        param_values: Dict mapping parameter names to constant real values for generation.
-                     Only used if conditioning_sequence is None. If None, uses 0.5 for all params.
-        device: Device to use for generation (default: 'cpu')
-    
-    Returns:
-        Generated audio as numpy array
-    """
     scaler = ParameterScaler(conditioning_config)
     feature_names = conditioning_config['feature_names']
     num_features = len(feature_names)
+    hop_size = rnngen.hopsize  # This is the '8' the model is looking for
     
+    # 1. Prepare the full conditioning sequence
     if conditioning_sequence is not None:
-        # Use provided sequence
-        print(f"Using provided conditioning sequence: {conditioning_sequence.shape}")
         cond_seq = conditioning_sequence
     else:
-        # Create constant conditioning from param_values
         num_frames = int(duration * FRAME_RATE)
         cond_seq = torch.zeros(num_frames, num_features)
-        
-        print(f"Generating {duration}s of audio ({num_frames} frames)...")
-        print("Conditioning values:")
-        
         for i, name in enumerate(feature_names):
-            if param_values and name in param_values:
-                real_val = param_values[name]
-                norm_val = scaler.normalize(name, real_val)
-            else:
-                norm_val = 0.5
-                real_val = scaler.denormalize(name, norm_val)
-            
+            norm_val = scaler.normalize(name, param_values.get(name, 0.5)) if param_values else 0.5
             cond_seq[:, i] = norm_val
-            unit = scaler.get_unit(name)
-            print(f"  - {name}: {real_val:.2f} {unit}")
+
+    # 2. Ensure sequence length is a multiple of hop_size
+    # (300 / 8 = 37.5, so we need to pad it to 304 frames to make the math work)
+    remainder = cond_seq.shape[0] % hop_size
+    if remainder != 0:
+        padding = torch.zeros((hop_size - remainder, num_features), device=cond_seq.device)
+        # Pad with the last value to keep pitch consistent
+        padding[:] = cond_seq[-1] 
+        cond_seq = torch.cat([cond_seq, padding], dim=0)
     
-    # Generate audio
-    start = time.perf_counter()
-    generated_audio = rnngen.getNextAudioHop(cond_seq.to(device))
-    elapsed = time.perf_counter() - start
+    # 3. Loop through the sequence in "Hops"
+    print(f"Generating audio in chunks of {hop_size} frames...")
+    rnngen.hidden = None 
     
-    duration_sec = generated_audio.shape[0] / SR
-    print(f"\nGeneration complete!")
-    print(f"  - Audio duration: {duration_sec:.2f}s")
-    print(f"  - Generation time: {elapsed:.2f}s")
-    print(f"  - Real-time factor: {duration_sec/elapsed:.2f}x")
+    all_audio_chunks = []
+    hop_size = rnngen.hopsize
     
-    return generated_audio
+    # 2. Iterate through the sequence
+    for t in range(0, cond_seq.shape[0], hop_size):
+        # Slice the next 8 frames
+        hop_cond = cond_seq[t : t + hop_size].to(device)
+        
+        # Generate the next chunk of audio
+        # The model updates its own 'hidden' state internally during this call
+        audio_chunk = rnngen.getNextAudioHop(hop_cond)
+        all_audio_chunks.append(audio_chunk)
+        
+    return np.concatenate(all_audio_chunks)
 
 
 def play_audio(audio: np.ndarray, sample_rate: int = SR):
@@ -541,6 +527,7 @@ def run_inference(
     initial_values: Optional[Dict[str, float]] = None,
     offline_duration: float = 10.0,
     offline_params: Optional[Dict[str, float]] = None,
+    conditioning_sequence: Optional[torch.Tensor] = None,
     chunksize: int = 20,
     hopsize: int = 8
 ):
@@ -646,7 +633,8 @@ def run_inference(
             rnngen=rnngen,
             conditioning_config=conditioning_config,
             duration=offline_duration,
-            param_values=offline_params
+            param_values=offline_params,
+            conditioning_sequence=conditioning_sequence
         )
         return audio
     
